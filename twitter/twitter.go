@@ -34,6 +34,23 @@ func (t *Twitter) createClient(c *config.Config) {
 
 // DeleteTweets deletes tweets :D
 func (t *Twitter) DeleteTweets() {
+	loc, err := time.LoadLocation("Asia/Tehran")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for {
+		fmt.Println("checking time...")
+		now := time.Now().In(loc).Format("15:04")
+		fmt.Printf("It is: %v\n", now)
+		if now == "00:00" {
+			t.Client.Statuses.Update("00:00\nTime is A lie.\nWhatever you are, be a good one.", nil)
+		}
+		time.Sleep(15 * time.Second)
+	}
+}
+
+// Zero tweets the 00:00 at 00:00
+func (t *Twitter) Zero() {
 	params := twitter.UserTimelineParams{ScreenName: os.Getenv("USERNAME"), Count: 500, IncludeRetweets: twitter.Bool(true)}
 	lastTweetID := int64(0)
 	for {
@@ -44,6 +61,9 @@ func (t *Twitter) DeleteTweets() {
 		if err != nil {
 			log.Fatalln(err)
 			return
+		}
+		if len(tweets) == 0 {
+			lastTweetID = 0
 		}
 		deadline := time.Now().Local().AddDate(0, 0, -7)
 		for _, tweet := range tweets {
