@@ -3,6 +3,7 @@ package twitter
 import (
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/dghubble/go-twitter/twitter"
@@ -31,9 +32,9 @@ func (t *Twitter) createClient(c *config.Config) {
 	t.Client = twitter.NewClient(httpClient)
 }
 
-// DeleteTweets delets tweets :D
+// DeleteTweets deletes tweets :D
 func (t *Twitter) DeleteTweets() {
-	params := twitter.UserTimelineParams{ScreenName: t.Config.ScreenName, Count: 200, IncludeRetweets: twitter.Bool(true)}
+	params := twitter.UserTimelineParams{ScreenName: os.Getenv("USERNAME"), Count: 200, IncludeRetweets: twitter.Bool(true)}
 	lastTweetID := int64(0)
 	for {
 		if lastTweetID != 0 {
@@ -54,9 +55,10 @@ func (t *Twitter) DeleteTweets() {
 					fmt.Println(err)
 					return
 				}
-				fmt.Printf("delated :%v", dt.ID)
+				fmt.Printf("Delated :%v - %v  @ %v \n", dt.ID, dt.CreatedAt, time.Now())
 			}
 		}
+		fmt.Println("Sleepig...")
 		time.Sleep(60 * time.Second)
 	}
 }
