@@ -32,8 +32,8 @@ func (t *Twitter) createClient(c *config.Config) {
 	t.Client = twitter.NewClient(httpClient)
 }
 
-// DeleteTweets deletes tweets :D
-func (t *Twitter) DeleteTweets() {
+// Zero tweets the 00:00 at 00:00
+func (t *Twitter) Zero() {
 	loc, err := time.LoadLocation("Asia/Tehran")
 	if err != nil {
 		log.Fatal(err)
@@ -45,12 +45,12 @@ func (t *Twitter) DeleteTweets() {
 		if now == "00:00" {
 			t.Client.Statuses.Update("00:00\nTime is A lie.\nWhatever you are, be a good one.", nil)
 		}
-		time.Sleep(15 * time.Second)
+		time.Sleep(60 * time.Second)
 	}
 }
 
-// Zero tweets the 00:00 at 00:00
-func (t *Twitter) Zero() {
+// DeleteTweets deletes tweets :D
+func (t *Twitter) DeleteTweets() {
 	params := twitter.UserTimelineParams{ScreenName: os.Getenv("USERNAME"), Count: 500, IncludeRetweets: twitter.Bool(true)}
 	lastTweetID := int64(0)
 	for {
