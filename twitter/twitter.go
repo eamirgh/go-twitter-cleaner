@@ -34,7 +34,7 @@ func (t *Twitter) createClient(c *config.Config) {
 
 // DeleteTweets deletes tweets :D
 func (t *Twitter) DeleteTweets() {
-	params := twitter.UserTimelineParams{ScreenName: os.Getenv("USERNAME"), Count: 200, IncludeRetweets: twitter.Bool(true)}
+	params := twitter.UserTimelineParams{ScreenName: os.Getenv("USERNAME"), Count: 500, IncludeRetweets: twitter.Bool(true)}
 	lastTweetID := int64(0)
 	for {
 		if lastTweetID != 0 {
@@ -59,6 +59,6 @@ func (t *Twitter) DeleteTweets() {
 			}
 		}
 		fmt.Println("Sleepig...")
-		time.Sleep(60 * time.Second)
+		time.Sleep(5 * time.Minute)
 	}
 }
