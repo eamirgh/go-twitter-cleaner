@@ -29,7 +29,6 @@ func keepAlive() {
 
 func hydrate(w http.ResponseWriter, _ *http.Request) {
 	fmt.Println("I'm alive!")
-	w.Header().Set("Content-Type", "plain/text;charset: utf-8;")
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("working!"))
 }
