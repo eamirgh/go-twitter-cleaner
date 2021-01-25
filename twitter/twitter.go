@@ -43,7 +43,7 @@ func (t *Twitter) Zero() {
 		now := time.Now().In(loc).Format("15:04")
 		fmt.Printf("It is: %v\n", now)
 		if now == "00:00" {
-			t.Client.Statuses.Update("00:00\nTime is a lie.\nWhatever you are, be a good one.", nil)
+			t.Client.Statuses.Update("00:00", nil)
 		}
 		time.Sleep(60 * time.Second)
 	}
