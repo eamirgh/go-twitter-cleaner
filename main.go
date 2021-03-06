@@ -42,7 +42,6 @@ func main() {
 	}
 	t := twitter.New()
 	go t.DeleteTweets()
-	go t.Zero()
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", hydrate)
 	srv := &http.Server{Addr: "0.0.0.0:" + os.Getenv("PORT"), ReadTimeout: 15 * time.Second, WriteTimeout: 15 * time.Second, Handler: mux}
