@@ -46,6 +46,5 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", hydrate)
 	srv := &http.Server{Addr: "0.0.0.0:" + os.Getenv("PORT"), ReadTimeout: 15 * time.Second, WriteTimeout: 15 * time.Second, Handler: mux}
-	go keepAlive()
 	go log.Fatal(srv.ListenAndServe())
 }
